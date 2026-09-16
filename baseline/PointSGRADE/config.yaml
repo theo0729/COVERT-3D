@@ -1,0 +1,65 @@
+experiment:
+  name: pointsgrade_main8_final_dev10_v4
+  method: PointSGRADE
+  categories:
+    - candybar
+    - diamond
+    - fish
+    - toffees
+    - bagel
+    - carrot
+    - peach
+    - potato
+  num_working_points: 10000
+  aggregation: per_sample_macro_average
+  metrics:
+    - precision
+    - recall
+    - f1
+    - iou
+
+paths:
+  cache_dir: baseline/benchmark_cache
+  output_dir: baseline/PointSGRADE/results/pointsgrade_main8_final_dev10_v4
+  real3d_root: data/real3d_ad
+  mvtec_root: data/mvtec_3d_ad_converted
+
+pointsgrade:
+  implementation: authors_released_pointSGRADE_solver
+  lambda0: 0.007
+  epsilon: 0.001
+  num_neighbor: 1500
+  num_neighbor_max: 800
+  threshold_angle: 0.17453292519943295
+  threshold_dist: 0.5
+  sigma: 2.0
+  random_state: 0
+  positive_label: 1
+  positive_class: recovered_anomaly_displacement_norm_above_1e-3
+
+evaluation:
+  run_good_samples: true
+  save_predictions: true
+  continue_on_error: true
+  require_complete_cache: true
+  sample_workers: 1
+  inner_thread_limit: null
+  numba_threads: 1
+
+provenance:
+  parameter_status: frozen_after_dev10_tuning
+  parameter_selection: dev10_v3_plus_one_time_v4_boundary_extension
+  tuning_protocol:
+    - fish5_diamond5_group_development_tuning
+    - one_time_boundary_extension_finalized
+  tuning_finalized: true
+  further_tuning_allowed: false
+  parameter_source: upstream PointSGRADE expr_real_sample.py (not bundled)
+  upstream_default_parameters_overridden_by_example:
+    - num_neighbor
+    - num_neighbor_max
+    - sigma
+  test_gt_used_for_parameter_selection: false
+  upstream_demo_preprocessing_applied: false
+  point_resampling_applied: false
+  coordinate_normalization_applied_by_adapter: false

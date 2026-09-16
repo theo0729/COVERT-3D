@@ -1,27 +1,36 @@
-# Python
-
 __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
-
-# Environments
-
-.venv/
-venv/
-env/
-
-# IDE
-
+.mypy_cache/
+.ruff_cache/
 .vscode/
 .idea/
 
-# OS
-
+*.log
+*.tmp
+*.bak
 .DS_Store
 Thumbs.db
 
-# Temporary files
+results/
+result/
+output/
+outputs/
+runtime/
+cache/
+checkpoints/
+logs/
+figures/
+figures_preview/
+exports/
+smoke/
+tmp/
+benchmark_cache/
+sample_artifacts/
+development_sample_artifacts/
 
-*.tmp
-*.log
+*.zip
+*.pth
+*.pt
+*.ckpt

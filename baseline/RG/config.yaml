@@ -1,0 +1,64 @@
+experiment:
+  name: rg_main8_final_dev10_v4
+  method: RG
+  categories:
+    - candybar
+    - diamond
+    - fish
+    - toffees
+    - bagel
+    - carrot
+    - peach
+    - potato
+  num_working_points: 10000
+  aggregation: per_sample_macro_average
+  metrics:
+    - precision
+    - recall
+    - f1
+    - iou
+
+paths:
+  cache_dir: baseline/benchmark_cache
+  output_dir: baseline/RG/results/rg_main8_final_dev10_v4
+  real3d_root: data/real3d_ad
+  mvtec_root: data/mvtec_3d_ad_converted
+
+region_growing:
+  implementation: python_pcl_style_reimplementation
+  smoothing: index_preserving_local_plane_projection
+  smoothing_k: 30
+  smoothing_iterations: 1
+  normal_estimation: local_pca
+  normal_k: 50
+  region_neighbor_k: 30
+  smoothness_threshold_deg: 5.0
+  curvature_threshold: 0.002
+  min_cluster_size: 1
+  normal_angle_sign_invariant: true
+  normal_region_rule: largest_cluster
+  unassigned_points: anomaly
+  query_workers: -1
+
+evaluation:
+  run_good_samples: true
+  save_predictions: true
+  continue_on_error: false
+  require_complete_cache: true
+  sample_workers: 1
+  inner_thread_limit: null
+
+provenance:
+  pcl_available: false
+  parameter_source: pcl_official_region_growing_tutorial
+  mls_substitute: index_preserving_local_plane_projection
+  method_description: our_reimplementation_following_3d_sonar_and_pcl
+  parameter_status: frozen_after_dev10_tuning
+  parameter_selection: dev10_v3_plus_one_time_v4_boundary_extension
+  tuning_protocol:
+    - fish5_diamond5_group_development_tuning
+    - one_time_boundary_extension_finalized
+  tuning_finalized: true
+  further_tuning_allowed: false
+  test_gt_used_for_parameter_selection: false
+  auroc_reported: false

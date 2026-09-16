@@ -1,0 +1,50 @@
+experiment:
+  name: sor_main8_final_dev10_v4
+  method: SOR
+  categories:
+    - candybar
+    - diamond
+    - fish
+    - toffees
+    - bagel
+    - carrot
+    - peach
+    - potato
+  num_working_points: 10000
+  aggregation: per_sample_macro_average
+  metrics:
+    - precision
+    - recall
+    - f1
+    - iou
+
+paths:
+  cache_dir: baseline/benchmark_cache
+  output_dir: baseline/SOR/results/sor_main8_final_dev10_v4
+  real3d_root: data/real3d_ad
+  mvtec_root: data/mvtec_3d_ad_converted
+
+sor:
+  implementation: open3d_remove_statistical_outlier
+  nb_neighbors: 5
+  std_ratio: 0.25
+  positive_class: removed_point
+
+evaluation:
+  run_good_samples: true
+  save_predictions: true
+  continue_on_error: false
+  require_complete_cache: true
+  sample_workers: 1
+  inner_thread_limit: null
+
+provenance:
+  parameter_status: frozen_after_dev10_tuning
+  parameter_selection: dev10_v3_plus_one_time_v4_boundary_extension
+  tuning_protocol:
+    - fish5_diamond5_group_development_tuning
+    - one_time_boundary_extension_finalized
+  tuning_finalized: true
+  further_tuning_allowed: false
+  test_gt_used_for_parameter_selection: false
+  auroc_reported: false

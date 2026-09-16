@@ -1,0 +1,50 @@
+{
+  "experiment_name": "candidate_recovery",
+  "paper_role": "main_text",
+  "scientific_question": "Robustness of the coupling between high-confidence initialization strictness and maximum spatial recovery extent.",
+  "sweep_parameters": {
+    "design": "full_factorial_5x3",
+    "confidence.high_confidence_seed_threshold": [0.30, 0.40, 0.50, 0.60, 0.70],
+    "sgcr.max_grow_hops": [5, 9, 13]
+  },
+  "fixed_parameter_policy": "All fields except confidence.high_confidence_seed_threshold and sgcr.max_grow_hops equal covert_sample.DEFAULT_CONFIG.",
+  "production_default": {
+    "confidence.high_confidence_seed_threshold": 0.50,
+    "sgcr.max_grow_hops": 9
+  },
+  "metric_semantics": {
+    "prediction": "production final_mask",
+    "within_category": "sample_macro_mean",
+    "across_categories": "category_balanced_mean",
+    "primary": ["heldout_f1_cb", "heldout_iou_cb"],
+    "auroc": "not_a_primary_v2_metric"
+  },
+  "pipeline": {
+    "entrypoint": "covert_sample.run_covert_sample",
+    "dataset_root": "data/real3d_ad",
+    "mvtec_root": "data/mvtec_3d_ad_converted",
+    "categories": ["candybar", "diamond", "fish", "toffees", "bagel", "carrot", "peach", "potato"],
+    "run_good_samples": false,
+    "sample_workers": 4,
+    "query_workers": 1,
+    "cross_configuration_parallelism": 1
+  },
+  "evaluation_scopes": ["all_main8", "heldout_excluding_dev10"],
+  "configurations": [
+    {"id": "tauQ_030_H5", "parameters": {"tau_q": 0.30, "h_max": 5}, "changes": {"confidence.high_confidence_seed_threshold": 0.30, "sgcr.max_grow_hops": 5}, "is_production_default": false},
+    {"id": "tauQ_030_H9", "parameters": {"tau_q": 0.30, "h_max": 9}, "changes": {"confidence.high_confidence_seed_threshold": 0.30, "sgcr.max_grow_hops": 9}, "is_production_default": false},
+    {"id": "tauQ_030_H13", "parameters": {"tau_q": 0.30, "h_max": 13}, "changes": {"confidence.high_confidence_seed_threshold": 0.30, "sgcr.max_grow_hops": 13}, "is_production_default": false},
+    {"id": "tauQ_040_H5", "parameters": {"tau_q": 0.40, "h_max": 5}, "changes": {"confidence.high_confidence_seed_threshold": 0.40, "sgcr.max_grow_hops": 5}, "is_production_default": false},
+    {"id": "tauQ_040_H9", "parameters": {"tau_q": 0.40, "h_max": 9}, "changes": {"confidence.high_confidence_seed_threshold": 0.40, "sgcr.max_grow_hops": 9}, "is_production_default": false},
+    {"id": "tauQ_040_H13", "parameters": {"tau_q": 0.40, "h_max": 13}, "changes": {"confidence.high_confidence_seed_threshold": 0.40, "sgcr.max_grow_hops": 13}, "is_production_default": false},
+    {"id": "tauQ_050_H5", "parameters": {"tau_q": 0.50, "h_max": 5}, "changes": {"confidence.high_confidence_seed_threshold": 0.50, "sgcr.max_grow_hops": 5}, "is_production_default": false},
+    {"id": "tauQ_050_H9", "parameters": {"tau_q": 0.50, "h_max": 9}, "changes": {"confidence.high_confidence_seed_threshold": 0.50, "sgcr.max_grow_hops": 9}, "is_production_default": true},
+    {"id": "tauQ_050_H13", "parameters": {"tau_q": 0.50, "h_max": 13}, "changes": {"confidence.high_confidence_seed_threshold": 0.50, "sgcr.max_grow_hops": 13}, "is_production_default": false},
+    {"id": "tauQ_060_H5", "parameters": {"tau_q": 0.60, "h_max": 5}, "changes": {"confidence.high_confidence_seed_threshold": 0.60, "sgcr.max_grow_hops": 5}, "is_production_default": false},
+    {"id": "tauQ_060_H9", "parameters": {"tau_q": 0.60, "h_max": 9}, "changes": {"confidence.high_confidence_seed_threshold": 0.60, "sgcr.max_grow_hops": 9}, "is_production_default": false},
+    {"id": "tauQ_060_H13", "parameters": {"tau_q": 0.60, "h_max": 13}, "changes": {"confidence.high_confidence_seed_threshold": 0.60, "sgcr.max_grow_hops": 13}, "is_production_default": false},
+    {"id": "tauQ_070_H5", "parameters": {"tau_q": 0.70, "h_max": 5}, "changes": {"confidence.high_confidence_seed_threshold": 0.70, "sgcr.max_grow_hops": 5}, "is_production_default": false},
+    {"id": "tauQ_070_H9", "parameters": {"tau_q": 0.70, "h_max": 9}, "changes": {"confidence.high_confidence_seed_threshold": 0.70, "sgcr.max_grow_hops": 9}, "is_production_default": false},
+    {"id": "tauQ_070_H13", "parameters": {"tau_q": 0.70, "h_max": 13}, "changes": {"confidence.high_confidence_seed_threshold": 0.70, "sgcr.max_grow_hops": 13}, "is_production_default": false}
+  ]
+}

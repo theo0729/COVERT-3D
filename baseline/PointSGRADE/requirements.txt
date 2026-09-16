@@ -1,0 +1,8 @@
+# Additional packages required by the unmodified PointSGRADE import/solver path.
+# The pre-existing NumPy/SciPy/Numba/Open3D/scikit-learn versions are not
+# changed or duplicated here.
+cvxpy==1.6.7
+sparse-dot-mkl==0.9.10
+tifffile==2025.5.10
+threadpoolctl==3.6.0
+tqdm==4.70.0

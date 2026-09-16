@@ -1,0 +1,38 @@
+{
+  "experiment_name": "vahks_modulation",
+  "paper_role": "main_text",
+  "scientific_question": "How broadly the local-surface-variation modulation strength remains stable around the frozen VA-HKS operating value.",
+  "sweep_parameters": {
+    "features.va_hks_gamma": [0, 2, 5, 10, 20, 50]
+  },
+  "fixed_parameter_policy": "All fields except features.va_hks_gamma equal covert_sample.DEFAULT_CONFIG.",
+  "production_default": {
+    "features.va_hks_gamma": 10.0
+  },
+  "metric_semantics": {
+    "prediction": "production final_mask",
+    "within_category": "sample_macro_mean",
+    "across_categories": "category_balanced_mean",
+    "primary": ["heldout_f1_cb", "heldout_iou_cb"],
+    "auroc": "not_a_primary_v2_metric"
+  },
+  "pipeline": {
+    "entrypoint": "covert_sample.run_covert_sample",
+    "dataset_root": "data/real3d_ad",
+    "mvtec_root": "data/mvtec_3d_ad_converted",
+    "categories": ["candybar", "diamond", "fish", "toffees", "bagel", "carrot", "peach", "potato"],
+    "run_good_samples": false,
+    "sample_workers": 4,
+    "query_workers": 1,
+    "cross_configuration_parallelism": 1
+  },
+  "evaluation_scopes": ["all_main8", "heldout_excluding_dev10"],
+  "configurations": [
+    {"id": "gamma_0", "parameters": {"gamma": 0}, "changes": {"features.va_hks_gamma": 0}, "is_production_default": false},
+    {"id": "gamma_2", "parameters": {"gamma": 2}, "changes": {"features.va_hks_gamma": 2}, "is_production_default": false},
+    {"id": "gamma_5", "parameters": {"gamma": 5}, "changes": {"features.va_hks_gamma": 5}, "is_production_default": false},
+    {"id": "gamma_10", "parameters": {"gamma": 10}, "changes": {"features.va_hks_gamma": 10}, "is_production_default": true},
+    {"id": "gamma_20", "parameters": {"gamma": 20}, "changes": {"features.va_hks_gamma": 20}, "is_production_default": false},
+    {"id": "gamma_50", "parameters": {"gamma": 50}, "changes": {"features.va_hks_gamma": 50}, "is_production_default": false}
+  ]
+}

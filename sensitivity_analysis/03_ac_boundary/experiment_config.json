@@ -1,0 +1,37 @@
+{
+  "experiment_name": "ac_boundary",
+  "paper_role": "main_text",
+  "scientific_question": "Whether the directional-support criterion for open physical boundaries is stable across a reasonable angular-cutoff range.",
+  "sweep_parameters": {
+    "new_ac.angle_threshold_deg": [90, 100, 110, 120, 130]
+  },
+  "fixed_parameter_policy": "All fields except new_ac.angle_threshold_deg equal covert_sample.DEFAULT_CONFIG; New-AC grouping, repair, filtering, expansion, and morphology remain frozen.",
+  "production_default": {
+    "new_ac.angle_threshold_deg": 110.0
+  },
+  "metric_semantics": {
+    "prediction": "production final_mask",
+    "within_category": "sample_macro_mean",
+    "across_categories": "category_balanced_mean",
+    "primary": ["heldout_f1_cb", "heldout_iou_cb"],
+    "auroc": "not_a_primary_v2_metric"
+  },
+  "pipeline": {
+    "entrypoint": "covert_sample.run_covert_sample",
+    "dataset_root": "data/real3d_ad",
+    "mvtec_root": "data/mvtec_3d_ad_converted",
+    "categories": ["candybar", "diamond", "fish", "toffees", "bagel", "carrot", "peach", "potato"],
+    "run_good_samples": false,
+    "sample_workers": 4,
+    "query_workers": 1,
+    "cross_configuration_parallelism": 1
+  },
+  "evaluation_scopes": ["all_main8", "heldout_excluding_dev10"],
+  "configurations": [
+    {"id": "ac_90", "parameters": {"theta_ac_deg": 90}, "changes": {"new_ac.angle_threshold_deg": 90}, "is_production_default": false},
+    {"id": "ac_100", "parameters": {"theta_ac_deg": 100}, "changes": {"new_ac.angle_threshold_deg": 100}, "is_production_default": false},
+    {"id": "ac_110", "parameters": {"theta_ac_deg": 110}, "changes": {"new_ac.angle_threshold_deg": 110}, "is_production_default": true},
+    {"id": "ac_120", "parameters": {"theta_ac_deg": 120}, "changes": {"new_ac.angle_threshold_deg": 120}, "is_production_default": false},
+    {"id": "ac_130", "parameters": {"theta_ac_deg": 130}, "changes": {"new_ac.angle_threshold_deg": 130}, "is_production_default": false}
+  ]
+}

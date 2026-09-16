@@ -1,0 +1,71 @@
+{
+  "experiment_name": "graph_geometry_coupling",
+  "paper_role": "main_text",
+  "scientific_question": "Whether the frozen graph-geometry operating point remains robust under a compact graph-and-scale setting, local graph-connectivity perturbations, and coordinated 1.5x/2x scale expansion.",
+  "sweep_parameters": {
+    "design": "nested_compact_local_and_coupled_scale_not_cartesian",
+    "graph_knn_k": [10, 14, 16, 18, 24, 32],
+    "surface_variation_scales": [[8, 16, 32], [12, 24, 48], [12, 24, 48], [12, 24, 48], [18, 36, 72], [24, 48, 96]]
+  },
+  "fixed_parameter_policy": "All fields except features.graph_knn_k and features.surface_variation_scales equal covert_sample.DEFAULT_CONFIG.",
+  "production_default": {
+    "features.graph_knn_k": 16,
+    "features.surface_variation_scales": [12, 24, 48]
+  },
+  "metric_semantics": {
+    "prediction": "production final_mask",
+    "within_category": "sample_macro_mean",
+    "across_categories": "category_balanced_mean",
+    "primary": ["heldout_f1_cb", "heldout_iou_cb"],
+    "auroc": "not_a_primary_v2_metric"
+  },
+  "pipeline": {
+    "entrypoint": "covert_sample.run_covert_sample",
+    "dataset_root": "data/real3d_ad",
+    "mvtec_root": "data/mvtec_3d_ad_converted",
+    "categories": ["candybar", "diamond", "fish", "toffees", "bagel", "carrot", "peach", "potato"],
+    "run_good_samples": false,
+    "sample_workers": 4,
+    "query_workers": 1,
+    "cross_configuration_parallelism": 1
+  },
+  "evaluation_scopes": ["all_main8", "heldout_excluding_dev10"],
+  "configurations": [
+    {
+      "id": "small_k10_L8-16-32",
+      "parameters": {"graph_knn_k": 10, "surface_variation_scales": [8, 16, 32]},
+      "changes": {"features.graph_knn_k": 10, "features.surface_variation_scales": [8, 16, 32]},
+      "is_production_default": false
+    },
+    {
+      "id": "local_k14_L12-24-48",
+      "parameters": {"graph_knn_k": 14, "surface_variation_scales": [12, 24, 48]},
+      "changes": {"features.graph_knn_k": 14, "features.surface_variation_scales": [12, 24, 48]},
+      "is_production_default": false
+    },
+    {
+      "id": "default_k16_L12-24-48",
+      "parameters": {"graph_knn_k": 16, "surface_variation_scales": [12, 24, 48]},
+      "changes": {"features.graph_knn_k": 16, "features.surface_variation_scales": [12, 24, 48]},
+      "is_production_default": true
+    },
+    {
+      "id": "local_k18_L12-24-48",
+      "parameters": {"graph_knn_k": 18, "surface_variation_scales": [12, 24, 48]},
+      "changes": {"features.graph_knn_k": 18, "features.surface_variation_scales": [12, 24, 48]},
+      "is_production_default": false
+    },
+    {
+      "id": "scale_k24_L18-36-72",
+      "parameters": {"graph_knn_k": 24, "surface_variation_scales": [18, 36, 72]},
+      "changes": {"features.graph_knn_k": 24, "features.surface_variation_scales": [18, 36, 72]},
+      "is_production_default": false
+    },
+    {
+      "id": "large_k32_L24-48-96",
+      "parameters": {"graph_knn_k": 32, "surface_variation_scales": [24, 48, 96]},
+      "changes": {"features.graph_knn_k": 32, "features.surface_variation_scales": [24, 48, 96]},
+      "is_production_default": false
+    }
+  ]
+}
