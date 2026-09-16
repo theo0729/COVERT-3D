@@ -1,0 +1,14 @@
+# Normalize text files in the repository
+
+* text=auto
+
+# Keep source/configuration files as LF
+
+*.md            text eol=lf
+*.py            text eol=lf
+*.json          text eol=lf
+*.yaml          text eol=lf
+*.yml           text eol=lf
+*.sh            text eol=lf
+.gitignore      text eol=lf
+.gitattributes  text eol=lf
